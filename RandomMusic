@@ -1,0 +1,30 @@
+# Define paths
+$gsProFolder = "C:\GSProV1"
+$menuMusicFolder = "C:\Users\markr\Documents\menumusic"
+$gsProFile = Join-Path -Path $gsProFolder -ChildPath "menu.wav"
+
+# Generate a random number for file renaming
+function Get-RandomNumber {
+    return (Get-Random -Minimum 1 -Maximum 1000)
+}
+
+# Move the existing menu.wav from GSPro to menumusic with a random number
+if (Test-Path $gsProFile) {
+    $randomNumber = Get-RandomNumber
+    $newName = "menu$randomNumber.wav"
+    Move-Item -Path $gsProFile -Destination (Join-Path -Path $menuMusicFolder -ChildPath $newName)
+}
+
+# Get a list of .wav files in the menumusic folder
+$wavFiles = Get-ChildItem -Path $menuMusicFolder -Filter "*.wav"
+
+# Check if there are .wav files to choose from
+if ($wavFiles.Count -gt 0) {
+    # Pick a random file from the list
+    $randomFile = $wavFiles | Get-Random
+
+    # Move the selected file to GSPro and rename it to menu.wav
+    Move-Item -Path $randomFile.FullName -Destination $gsProFile
+} else {
+    Write-Output "No .wav files found in $menuMusicFolder."
+}
