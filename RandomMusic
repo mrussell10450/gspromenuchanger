@@ -1,6 +1,6 @@
-# Define paths
+# Define paths, create your scripts folder or whatever you name it, and place this file in it.
 $gsProFolder = "C:\GSProV1"
-$menuMusicFolder = "C:\Users\markr\Documents\menumusic"
+$menuMusicFolder = "C:\scripts\menumusic"
 $gsProFile = Join-Path -Path $gsProFolder -ChildPath "menu.wav"
 
 # Generate a random number for file renaming
